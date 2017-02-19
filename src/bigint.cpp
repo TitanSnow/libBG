@@ -72,8 +72,25 @@ Bigint Bigint::operator+(Bigint const &b) const
 
 Bigint &Bigint::operator+=(Bigint const &b)
 {
-    if (!b.positive) {
-        return *this -= b;
+    if (positive && !b.positive) {
+        b.flip_positive();
+        *this -= b;
+        b.flip_positive();
+        return *this;
+    }
+    if (!positive && b.positive) {
+        flip_positive();
+        *this -= b;
+        flip_positive();
+        return *this;
+    }
+    if (!positive && !b.positive) {
+        flip_positive();
+        b.flip_positive();
+        *this += b;
+        flip_positive();
+        b.flip_positive();
+        return *this;
     }
     std::vector<int>::iterator
         it1 = number.begin();
@@ -142,6 +159,12 @@ Bigint Bigint::operator-(Bigint const &b) const
 
 Bigint &Bigint::operator-=(Bigint const &b)
 {
+    if (!positive || !b.positive){
+        b.flip_positive();
+        *this += b;
+        b.flip_positive();
+        return *this;
+    }
     std::vector<int>::iterator
         it1 = number.begin();
     std::vector<int>::const_iterator
@@ -362,6 +385,12 @@ Bigint &Bigint::abs()
     positive = true;
 
     return *this;
+}
+
+void Bigint::flip_positive() const
+{
+    // WARN: private use, must call as pair!!!
+    positive = !positive;
 }
 
 //Input&Output
