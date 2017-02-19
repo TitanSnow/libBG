@@ -294,7 +294,7 @@ bool Bigint::operator==(Bigint const &b) const
 
 bool Bigint::operator!=(Bigint const &b) const
 {
-	return ! (*this == b);
+    return ! (*this == b);
 }
 
 //Allocation
