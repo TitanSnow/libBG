@@ -174,20 +174,31 @@ Bigint &Bigint::operator-=(Bigint const &b)
         if (it1 != number.end()) {
             dif += *it1;
             ++it1;
+        } else {
+            number.push_back(0);
+            it1 = number.end();
         }
         if (it2 != b.number.end()) {
             dif -= *it2;
             ++it2;
         }
         if (dif < 0) {
-            *(it1 - 1) = (dif * (-1)) % base;
+            *(it1 - 1) = (dif + base) % base;
             dif = -1;
         } else {
             *(it1 - 1) = dif % base;
             dif /= base;
         }
     }
-    if (dif < 0) positive = false;
+    if (dif < 0) {
+        std::string newstr("1");
+        int c_seg = number.size();
+        while(c_seg--)
+            for(int i=1; i<base; i*=10)
+                newstr += "0";
+        *this = Bigint(newstr) - *this;
+        positive = false;
+    }
 
     return *this;
 }
