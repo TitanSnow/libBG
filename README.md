@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kasparsklavins/bigint.svg)](https://travis-ci.org/kasparsklavins/bigint)
+[![Build Status](https://travis-ci.org/TitanSnow/bigint.svg?branch=test)](https://travis-ci.org/TitanSnow/bigint)
 
 * [Description](#description)   
 * [Operators](#operators)
