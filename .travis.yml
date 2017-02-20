@@ -7,4 +7,4 @@ compiler:
 before_script:
   - make prepare
 
-script: make
+script: make test -j
