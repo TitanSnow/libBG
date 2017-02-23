@@ -4,6 +4,7 @@
 * [Operators](#operators)
   * [Addition](#addition)
   * [Subtraction](#subtraction)
+  * [Multiplication](#multiplication)
   * [Allocation](#allocation)
   * [Comparison](#comparison)
   * [Access](#access)
@@ -34,6 +35,14 @@ c += 6;
 Dodecahedron::Bigint a,b,c;
 c = a - b;
 c -= a;
+```
+##Multiplication
+```C++
+Dodecahedron::Bigint a,b,c;
+c = a * b;
+c *= a;
+c = a * 6;
+c *= 6;
 ```
 ##Allocation
 ```C++
