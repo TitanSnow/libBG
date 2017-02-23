@@ -168,10 +168,40 @@ Bigint &Bigint::operator-=(Bigint const &b)
         *this = Bigint(newstr) - *this;
         positive = false;
     }
-    while (!number.back())
+    while (!number.empty() && !number.back())
         number.pop_back();
 
     return *this;
+}
+
+//Multiplication
+Bigint Bigint::operator*(Bigint const &b) const
+{
+    Bigint const &a = *this;
+    Bigint c;
+    c.number.resize(a.number.size()+b.number.size());
+    for(std::vector<int>::const_iterator
+        it1(a.number.begin()); it1!=a.number.end(); ++it1)
+        for(std::vector<int>::const_iterator
+            it2(b.number.begin()); it2!=b.number.end(); ++it2)
+            c.number[
+                (it1 - a.number.begin()) +
+                (it2 - b.number.begin()) ]
+            = *it1 * *it2;
+    for(std::vector<int>::iterator it(c.number.begin() + 1);
+        it < c.number.end(); ++it){
+        *it += *(it - 1) / base;
+        *(it - 1) %= base;
+    }
+    while(!c.number.empty() && !c.number.back())
+        c.number.pop_back();
+    c.positive = !(a.positive ^ b.positive);
+    return c;
+}
+
+Bigint &Bigint::operator*=(Bigint const &b)
+{
+    return *this = *this * b;
 }
 
 //Compare

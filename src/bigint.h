@@ -32,6 +32,10 @@ public:
     Bigint operator-(Bigint const &) const;
     Bigint &operator-=(Bigint const &);
 
+    //Multiplication
+    Bigint operator*(Bigint const &) const;
+    Bigint &operator*=(Bigint const &);
+
     //Compare
     bool operator<(const Bigint &) const;
     bool operator>(const Bigint &) const;
@@ -56,7 +60,6 @@ public:
     int trailing_zeros() const;
 private:
     int segment_length(int) const;
-    Bigint pow(int const &, std::map<int, Bigint> &);
     int compare(Bigint const &) const; //0 a == b, -1 a < b, 1 a > b
     void flip_positive() const;
 };
