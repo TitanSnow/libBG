@@ -27,8 +27,6 @@ public:
     //Adding
     Bigint operator+(Bigint const &) const;
     Bigint &operator+=(Bigint const &);
-    Bigint operator+(long long const &) const;
-    Bigint &operator+=(long long);
 
     //Subtraction
     Bigint operator-(Bigint const &) const;

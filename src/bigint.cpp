@@ -117,37 +117,6 @@ Bigint &Bigint::operator+=(Bigint const &b)
     return *this;
 }
 
-Bigint Bigint::operator+(long long const &b) const
-{
-    Bigint c = *this;
-    c += b;
-
-    return c;
-}
-
-Bigint &Bigint::operator+=(long long b)
-{
-    std::vector<int>::iterator it = number.begin();
-    if (skip > number.size()) {
-        number.insert(number.end(), skip - number.size(), 0);
-    }
-    it += skip;
-    while (b) {
-        if (it != number.end()) {
-            *it += b % base;
-            b /= base;
-            b += *it / base;
-            *it %= base;
-            ++it;
-        } else {
-            number.push_back(0);
-            it = number.end() - 1;
-        }
-    }
-
-    return *this;
-}
-
 //Subtraction
 Bigint Bigint::operator-(Bigint const &b) const
 {
