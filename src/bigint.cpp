@@ -271,12 +271,6 @@ Bigint Bigint::operator=(const long long &a)
     return *this;
 }
 
-//Access
-int Bigint::operator[](int const &b)
-{
-    return to_string(*this)[b] - '0';
-}
-
 //Trivia
 int Bigint::digits() const
 {

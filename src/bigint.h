@@ -45,9 +45,6 @@ public:
     //Allocation
     Bigint operator=(const long long &);
 
-    //Access
-    int operator[](int const &);
-
     //Input&Output
     friend std::istream &operator>>(std::istream &, Bigint &);
     friend std::ostream &operator<<(std::ostream &, Bigint const &);
