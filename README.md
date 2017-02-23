@@ -1,10 +1,9 @@
-[![Build Status](https://travis-ci.org/TitanSnow/bigint.svg?branch=test)](https://travis-ci.org/TitanSnow/bigint)
+[![Build Status](https://travis-ci.org/TitanSnow/libBG.svg?branch=master)](https://travis-ci.org/TitanSnow/libBG)
 
 * [Description](#description)   
 * [Operators](#operators)
   * [Addition](#addition)
   * [Subtraction](#subtraction)
-  * [Multiplication](#multiplication)
   * [Allocation](#allocation)
   * [Comparison](#comparison)
   * [Access](#access)
@@ -12,13 +11,11 @@
 * [Methods](#methods)
   * [clear](#clear)
   * [abs](#abs)
-  * [pow](#powint)
   * [digits](#digits)
   * [trailing_zeros](#trailing_zeros)
 * [Functions](#functions)
   * [abs](#absbigint)
   * [to_string](#to_stringbigint)
-  * [factorial](#factorialint)
 
 #Description
 Bigint class provides math operations for arbitrarily large numbers. You know the limit is reached when your computer freezes.
@@ -37,14 +34,6 @@ c += 6;
 Dodecahedron::Bigint a,b,c;
 c = a - b;
 c -= a;
-```
-##Multiplication
-```C++
-Dodecahedron::Bigint a,b,c;
-c = a * b;
-c *= a;
-c = a * 6;
-c *= 6;
 ```
 ##Allocation
 ```C++
@@ -90,12 +79,6 @@ Absolute value.
 Dodecahedron::Bigint a = -4558;
 cout << a.abs() // 4558
 ```
-##pow(int)
-Raises to the power of N.
-```C++
-Dodecahedron::Bigint a = 4558;
-cout << a.pow(486); // ~1.46 * 10^1778
-```
 ##digits()
 Returns the number of digits.
 ```C++
@@ -122,9 +105,4 @@ Converts the big integer to a string.
 string str;
 Dodecahedron::Bigint a = 455897864531248;
 str = to_string(a);
-```
-##factorial(int)
-Returns a factorial of an integer, aka n!
-```C++
-cout << Dodecahedron::factorial(20000); //70`000+ digit number
 ```
