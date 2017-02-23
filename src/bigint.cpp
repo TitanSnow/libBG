@@ -205,81 +205,6 @@ Bigint &Bigint::operator-=(Bigint const &b)
     return *this;
 }
 
-//Multiplication
-Bigint Bigint::operator*(Bigint const &b)
-{
-    if (b.number.size() == 1) return *this *= b.number[0];
-    std::vector<int>::iterator it1;
-    std::vector<int>::const_iterator it2;
-    Bigint c;
-    for (it1 = number.begin(); it1 != number.end(); ++it1) {
-        for (it2 = b.number.begin(); it2 != b.number.end(); ++it2) {
-            c.skip = (unsigned int) (it1 - number.begin()) + (it2 - b.number.begin()); //TODO
-            c += (long long) (*it1) * (*it2);
-        }
-    }
-    c.skip = 0;
-
-    return c;
-}
-
-Bigint &Bigint::operator*=(Bigint const &b)
-{
-    *this = *this * b;
-
-    return *this;
-}
-
-Bigint Bigint::operator*(long long const &b)
-{
-    Bigint c = *this;
-    c *= b;
-
-    return c;
-}
-
-Bigint &Bigint::operator*=(int const &b)
-{
-    std::vector<int>::iterator it = number.begin();
-    long long sum = 0;
-    while (it != number.end()) {
-        sum += (long long) (*it) * b;
-        *it = (int) (sum % base);
-        sum /= base;
-        ++it;
-    }
-    if (sum) number.push_back((int) sum);
-
-    return *this;
-}
-
-//Power
-Bigint Bigint::pow(int const &power, std::map<int, Bigint> &lookup)
-{
-    if (power == 1) return *this;
-    if (lookup.count(power)) return lookup[power];
-
-    int closestPower = 1;
-    while (closestPower < power) closestPower <<= 1;
-    closestPower >>= 1;
-
-    if (power == closestPower) lookup[power] = pow(power / 2, lookup) * pow(power / 2, lookup);
-    else lookup[power] = pow(closestPower, lookup) * pow(power - closestPower, lookup);
-
-    return lookup[power];
-}
-
-Bigint &Bigint::pow(int const &power)
-{
-    std::map<int, Bigint> lookup;
-    if (power % 2 == 0 && !positive) {
-        positive = true;
-    }
-    *this = pow(power, lookup);
-
-    return *this;
-}
-
 //Compare
 int Bigint::compare(const Bigint &a) const //0 this == a || -1 this < a || 1 this > a
 {
@@ -459,22 +384,6 @@ std::string to_string(Bigint const &value)
     stream << value;
 
     return stream.str();
-}
-
-Bigint factorial(int n)
-{
-    Bigint result = 1;
-    if (n % 2) {
-        result = n;
-        --n;
-    }
-    int last = 0;
-    for (; n >= 2; n -= 2) {
-        result *= n + last;
-        last += n;
-    }
-
-    return result;
 }
 
 }
