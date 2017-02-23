@@ -1,6 +1,8 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <algorithm>
+#include <iterator>
 #include "bigint.h"
 
 namespace Dodecahedron
@@ -50,7 +52,7 @@ Bigint::Bigint(std::string stringInteger)
         int length = 0;
         int num = 0;
         int prefix = 1;
-        for (int i(size - 1); i >= 0 && i >= size - 9; --i) {
+        for (int i(size - 1); i >= 0 && i >= size - Bigint::default_digits_per_element; --i) {
             if (stringInteger[i] < '0' || stringInteger[i] > '9') break;
             num += (stringInteger[i] - '0') * prefix;
             prefix *= 10;
@@ -179,23 +181,24 @@ Bigint Bigint::operator*(Bigint const &b) const
 {
     Bigint const &a = *this;
     Bigint c;
-    c.number.resize(a.number.size()+b.number.size());
+    std::vector<long long> number(a.number.size()+b.number.size());
     for(std::vector<int>::const_iterator
         it1(a.number.begin()); it1!=a.number.end(); ++it1)
         for(std::vector<int>::const_iterator
             it2(b.number.begin()); it2!=b.number.end(); ++it2)
-            c.number[
+            number[
                 (it1 - a.number.begin()) +
                 (it2 - b.number.begin()) ]
-            = *it1 * *it2;
-    for(std::vector<int>::iterator it(c.number.begin() + 1);
-        it < c.number.end(); ++it){
+            += static_cast<long long>(*it1) * *it2;
+    for(std::vector<long long>::iterator it(number.begin() + 1);
+        it < number.end(); ++it){
         *it += *(it - 1) / base;
         *(it - 1) %= base;
     }
-    while(!c.number.empty() && !c.number.back())
-        c.number.pop_back();
+    while(!number.empty() && !number.back())
+        number.pop_back();
     c.positive = !(a.positive ^ b.positive);
+    std::copy(number.begin(), number.end(), std::back_inserter(c.number));
     return c;
 }
 
@@ -277,7 +280,7 @@ int Bigint::digits() const
 
     if (segments == 0) return 0;
 
-    int digits = 9 * (segments - 1);
+    int digits = Bigint::default_digits_per_element * (segments - 1);
     digits += segment_length(number.back());
 
     return digits;
@@ -291,7 +294,7 @@ int Bigint::trailing_zeros() const
     std::vector<int>::const_iterator it = number.begin();
     if (number.size() > 1) {
         for (; it != number.end() - 1 && *it == 0; ++it) {
-            zeros += 9;
+            zeros += Bigint::default_digits_per_element;
         }
     }
     int a = *it;
@@ -338,7 +341,7 @@ std::ostream &operator<<(std::ostream &out, Bigint const &a)
 
     out << *it++;
     for (; it != a.number.rend(); ++it) {
-        for (int i(0), len = a.segment_length(*it); i < 9 - len; ++i) out << '0';
+        for (int i(0), len = a.segment_length(*it); i < Bigint::default_digits_per_element - len; ++i) out << '0';
         if (*it) out << *it;
     }
 

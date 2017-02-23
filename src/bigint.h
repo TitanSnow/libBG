@@ -15,7 +15,8 @@ private:
     mutable bool positive;
     int base;
     unsigned int skip;
-    static const int default_base=1000000000;
+    static const int default_base=10000;
+    static const int default_digits_per_element=4;
 
 public:
     //Constructors
