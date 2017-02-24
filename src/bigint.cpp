@@ -179,23 +179,43 @@ Bigint &Bigint::operator-=(Bigint const &b)
 //Multiplication
 Bigint Bigint::operator*(Bigint const &b) const
 {
+    const long long max_longlong =
+        static_cast<long long>(
+            static_cast<unsigned long long>(
+                static_cast<long long>(-1)
+            ) >> 1
+        );
+    const long long update_limit =
+        max_longlong - static_cast<long long>(base - 1) * (base - 1);
+    bool update_flag;
+
     Bigint const &a = *this;
     Bigint c;
     std::vector<long long> number(a.number.size()+b.number.size());
     for(std::vector<int>::const_iterator
         it1(a.number.begin()); it1!=a.number.end(); ++it1){
+        update_flag = false;
         for(std::vector<int>::const_iterator
             it2(b.number.begin()); it2!=b.number.end(); ++it2)
-            number[
-                (it1 - a.number.begin()) +
-                (it2 - b.number.begin()) ]
-            += static_cast<long long>(*it1) * *it2;
+            update_flag = ((
+                number[
+                    (it1 - a.number.begin()) +
+                    (it2 - b.number.begin()) ]
+                += static_cast<long long>(*it1) * *it2
+            ) > update_limit || update_flag);
+        if(update_flag)
+            for(std::vector<long long>::iterator it(number.begin() + 1);
+                it < number.end(); ++it){
+                *it += *(it - 1) / base;
+                *(it - 1) %= base;
+            }
+    }
+    if(!update_flag)
         for(std::vector<long long>::iterator it(number.begin() + 1);
             it < number.end(); ++it){
             *it += *(it - 1) / base;
             *(it - 1) %= base;
         }
-    }
     while(!number.empty() && !number.back())
         number.pop_back();
     c.positive = !(a.positive ^ b.positive);
