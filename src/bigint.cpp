@@ -183,17 +183,18 @@ Bigint Bigint::operator*(Bigint const &b) const
     Bigint c;
     std::vector<long long> number(a.number.size()+b.number.size());
     for(std::vector<int>::const_iterator
-        it1(a.number.begin()); it1!=a.number.end(); ++it1)
+        it1(a.number.begin()); it1!=a.number.end(); ++it1){
         for(std::vector<int>::const_iterator
             it2(b.number.begin()); it2!=b.number.end(); ++it2)
             number[
                 (it1 - a.number.begin()) +
                 (it2 - b.number.begin()) ]
             += static_cast<long long>(*it1) * *it2;
-    for(std::vector<long long>::iterator it(number.begin() + 1);
-        it < number.end(); ++it){
-        *it += *(it - 1) / base;
-        *(it - 1) %= base;
+        for(std::vector<long long>::iterator it(number.begin() + 1);
+            it < number.end(); ++it){
+            *it += *(it - 1) / base;
+            *(it - 1) %= base;
+        }
     }
     while(!number.empty() && !number.back())
         number.pop_back();
