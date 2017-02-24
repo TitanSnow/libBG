@@ -13,17 +13,14 @@ Bigint::Bigint()
 {
     positive = true;
     base = Bigint::default_base;
-    skip = 0;
 }
 Bigint::Bigint(const Bigint &b)
         : number(b.number),
           positive(b.positive),
-          base(b.base),
-          skip(b.skip) { }
+          base(b.base) {}
 Bigint::Bigint(long long value)
 {
     base = Bigint::default_base;
-    skip = 0;
     if (value < 0) {
         positive = false;
         value *= -1;
@@ -42,7 +39,6 @@ Bigint::Bigint(std::string stringInteger)
     int size = stringInteger.length();
 
     base = Bigint::default_base;
-    skip = 0;
     positive = (stringInteger[0] != '-');
 
     while (true) {
@@ -187,7 +183,7 @@ Bigint Bigint::operator*(Bigint const &b) const
         );
     const long long update_limit =
         max_longlong - static_cast<long long>(base - 1) * (base - 1);
-    bool update_flag;
+    bool update_flag = false;
 
     Bigint const &a = *this;
     Bigint c;
@@ -332,7 +328,6 @@ void Bigint::clear()
 {
     number.clear();
     positive = true;
-    skip = 0;
 }
 
 Bigint &Bigint::abs()
