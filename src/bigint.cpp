@@ -3,8 +3,9 @@
 #include <map>
 #include <algorithm>
 #include <iterator>
-#include "bigint.h"
 #include <cmath>
+#include <cstdio>
+#include "bigint.h"
 
 namespace Dodecahedron
 {
@@ -223,6 +224,13 @@ Bigint Bigint::operator*(Bigint const &b) const
 Bigint &Bigint::operator*=(Bigint const &b)
 {
     return *this = *this * b;
+}
+
+static std::string to_string(const int value)
+{
+    char str[16];
+    std::sprintf(str, "%d", value);
+    return str;
 }
 
 Bigint sub_number(Bigint &p, Bigint &q){
