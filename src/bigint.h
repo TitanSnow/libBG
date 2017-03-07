@@ -58,11 +58,15 @@ public:
     void clear();
     Bigint &abs();
 
+    //Power
+    Bigint &pow(int const &);
+
     //Trivia
     int digits() const;
     int trailing_zeros() const;
 private:
     int segment_length(int) const;
+    Bigint pow(int const &, std::map<int, Bigint> &);
     int compare(Bigint const &) const; //0 a == b, -1 a < b, 1 a > b
     void flip_positive() const;
     Bigint sub_number(Bigint &p, Bigint &q); // used in the division function
