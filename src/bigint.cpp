@@ -349,14 +349,24 @@ std::vector<Bigint> divide(Bigint p, Bigint q){
 
 }
 
-Bigint Bigint::operator/(Bigint const &b)
+Bigint Bigint::operator/(Bigint const &b) const
 {
     return divide(*this, b)[0];
 }
 
-Bigint Bigint::operator%(Bigint const &b)
+Bigint &Bigint::operator/=(Bigint const &b)
+{
+    return *this = divide(*this, b)[0];
+}
+
+Bigint Bigint::operator%(Bigint const &b) const
 {
     return divide(*this, b)[1];
+}
+
+Bigint &Bigint::operator%=(Bigint const &b)
+{
+    return *this = divide(*this, b)[1];
 }
 
 //Power

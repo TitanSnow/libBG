@@ -1,2 +1,2 @@
 #include"test.h"
-TWO_BIGINT_TEST_ONE(a/b)
+TWO_BIGINT_TEST_ONE((a/=b))

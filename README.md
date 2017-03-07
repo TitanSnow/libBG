@@ -47,14 +47,19 @@ c *= 6;
 ```
 ##Division
 ```C++
-Dodecahedron::Bigint a,b;
-std::vector<Bigint> c;
-Dodecahedron::Bigint quotient, remainder ;
-
+Dodecahedron::Bigint a,b,c;
 c = a / b;
-
-quotient = c[0];
-remainder = c[1];
+c /= a;
+c = a / 6;
+c /= 6;
+```
+##Modulo
+```C++
+Dodecahedron::Bigint a,b,c;
+c = a % b;
+c %= a;
+c = a % 6;
+c %= 6;
 ```
 ##Allocation
 ```C++

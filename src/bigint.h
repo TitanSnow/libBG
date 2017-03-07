@@ -36,9 +36,11 @@ public:
     Bigint operator*(Bigint const &) const;
     Bigint &operator*=(Bigint const &);
 
-    //Division
-    Bigint operator/(Bigint const&);
-    Bigint operator%(Bigint const&);
+    //Division & modulo operation
+    Bigint operator/(Bigint const&) const;
+    Bigint &operator/=(Bigint const &);
+    Bigint operator%(Bigint const&) const;
+    Bigint &operator%=(Bigint const &);
     friend Bigint sub_number(Bigint &p, Bigint &q);
     friend std::vector<Bigint> divide(Bigint p, Bigint q);
 
