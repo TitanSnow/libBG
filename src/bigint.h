@@ -37,7 +37,10 @@ public:
     Bigint &operator*=(Bigint const &);
 
     //Division
-    std::vector<Bigint> operator/(Bigint q); // returns quotient(index[0]) and remainder(index[1])
+    Bigint operator/(Bigint const&);
+    Bigint operator%(Bigint const&);
+    friend Bigint sub_number(Bigint &p, Bigint &q);
+    friend std::vector<Bigint> divide(Bigint p, Bigint q);
 
     //Compare
     bool operator<(const Bigint &) const;
@@ -69,7 +72,6 @@ private:
     Bigint pow(int const &, std::map<int, Bigint> &);
     int compare(Bigint const &) const; //0 a == b, -1 a < b, 1 a > b
     void flip_positive() const;
-    Bigint sub_number(Bigint &p, Bigint &q); // used in the division function
 };
 
 Bigint abs(Bigint);

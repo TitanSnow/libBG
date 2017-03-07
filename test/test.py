@@ -11,7 +11,7 @@ class Runner:
 		return self.__output
 
 from random import randint
-times = 10000
+times = 1000
 hi = 10**10000
 lo = -hi
 debugMode = False
@@ -30,6 +30,10 @@ for i in range(times):
 		rst = a - b
 	elif op=='mul':
 		rst = a * b
+	elif op=='div':
+		rst = a / b
+	elif op=='mod':
+		rst = a % b
 	else:
 		exit(2)
 	if debugMode:

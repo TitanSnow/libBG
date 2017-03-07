@@ -19,5 +19,13 @@ testmul: build/libbg.a test/bmul.cpp test/test.h test/test.py src/bigint.h
 	$(CXX) test/bmul.cpp build/libbg.a -o test/testprogmul -Isrc -Itest
 	cd test;./test.py mul
 	-rm test/testprogmul
-test: testadd testsub testmul
-.PHONY: all clean prepare testadd testsub testmul test
+testdiv: build/libbg.a test/bdiv.cpp test/test.h test/test.py src/bigint.h
+	$(CXX) test/bdiv.cpp build/libbg.a -o test/testprogdiv -Isrc -Itest
+	cd test;./test.py div
+	-rm test/testprogdiv
+testmod: build/libbg.a test/bmod.cpp test/test.h test/test.py src/bigint.h
+	$(CXX) test/bmod.cpp build/libbg.a -o test/testprogmod -Isrc -Itest
+	cd test;./test.py mod
+	-rm test/testprogmod
+test: testadd testsub testmul testdiv testmod
+.PHONY: all clean prepare testadd testsub testmul testdiv testmod test

@@ -225,7 +225,7 @@ Bigint &Bigint::operator*=(Bigint const &b)
     return *this = *this * b;
 }
 
-Bigint Bigint::sub_number(Bigint &p, Bigint &q){
+Bigint sub_number(Bigint &p, Bigint &q){
 
       std::string tmpx0, tmpx1, tmpx3;
       long window_size = q.digits();
@@ -286,11 +286,10 @@ Bigint Bigint::sub_number(Bigint &p, Bigint &q){
       return c;
 }
 //Division
-std::vector<Bigint> Bigint::operator/(Bigint q){
+std::vector<Bigint> divide(Bigint p, Bigint q){
 
     /*Algorithm used is "Double division algorithm"*/
 
-    Bigint p = *this;
     std::vector<Bigint> answer;
     int look_up_table_size=4;
     std::vector<Bigint> look_up(look_up_table_size);
@@ -348,6 +347,16 @@ std::vector<Bigint> Bigint::operator/(Bigint q){
     }
     return answer;
 
+}
+
+Bigint Bigint::operator/(Bigint const &b)
+{
+    return divide(*this, b)[0];
+}
+
+Bigint Bigint::operator%(Bigint const &b)
+{
+    return divide(*this, b)[1];
 }
 
 //Power
