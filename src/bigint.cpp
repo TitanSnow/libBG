@@ -59,6 +59,7 @@ Bigint::Bigint(std::string stringInteger)
         number.push_back(num);
         size -= length;
     }
+    delete_precode_zero();
 }
 
 //Adding
@@ -168,8 +169,7 @@ Bigint &Bigint::operator-=(Bigint const &b)
         *this = Bigint(newstr) - *this;
         positive = false;
     }
-    while (!number.empty() && !number.back())
-        number.pop_back();
+    delete_precode_zero();
 
     return *this;
 }
@@ -214,10 +214,9 @@ Bigint Bigint::operator*(Bigint const &b) const
             *it += *(it - 1) / base;
             *(it - 1) %= base;
         }
-    while(!number.empty() && !number.back())
-        number.pop_back();
     c.positive = !(a.positive ^ b.positive);
     std::copy(number.begin(), number.end(), std::back_inserter(c.number));
+    c.delete_precode_zero();
     return c;
 }
 
@@ -357,23 +356,33 @@ std::vector<Bigint> divide(Bigint p, Bigint q){
 
 }
 
+static void check_divisor(Bigint const &b)
+{
+    if (b == 0)
+        throw Bigint::arithmetic_error("Divide by zero");
+}
+
 Bigint Bigint::operator/(Bigint const &b) const
 {
+    check_divisor(b);
     return divide(*this, b)[0];
 }
 
 Bigint &Bigint::operator/=(Bigint const &b)
 {
+    check_divisor(b);
     return *this = divide(*this, b)[0];
 }
 
 Bigint Bigint::operator%(Bigint const &b) const
 {
+    check_divisor(b);
     return divide(*this, b)[1];
 }
 
 Bigint &Bigint::operator%=(Bigint const &b)
 {
+    check_divisor(b);
     return *this = divide(*this, b)[1];
 }
 
@@ -522,6 +531,12 @@ void Bigint::flip_positive() const
 {
     // WARN: private use, must call as pair!!!
     positive = !positive;
+}
+
+void Bigint::delete_precode_zero()
+{
+    while (!number.empty() && !number.back())
+        number.pop_back();
 }
 
 //Input&Output

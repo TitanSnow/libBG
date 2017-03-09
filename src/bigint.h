@@ -4,11 +4,21 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <stdexcept>
+#include <string>
 
 namespace Dodecahedron
 {
 class Bigint
 {
+public:
+    class arithmetic_error : public std::runtime_error
+    {
+    public:
+        explicit arithmetic_error(const std::string& what_arg)
+            : std::runtime_error(what_arg) {}
+    };
+
 private:
     std::vector<int> number;
     // don't modify this directly through const. use flip_positive
@@ -74,6 +84,7 @@ private:
     Bigint pow(int const &, std::map<int, Bigint> &);
     int compare(Bigint const &) const; //0 a == b, -1 a < b, 1 a > b
     void flip_positive() const;
+    void delete_precode_zero();
 };
 
 Bigint abs(Bigint);
