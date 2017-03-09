@@ -27,5 +27,5 @@ testmod: build/libbg.a test/bmod.cpp test/test.h test/test.py src/bigint.h
 	$(CXX) test/bmod.cpp build/libbg.a -o test/testprogmod -Isrc -Itest
 	cd test;./test.py mod
 	-rm test/testprogmod
-test: testadd testsub testmul
+test: testadd testsub testmul testdiv testmod
 .PHONY: all clean prepare testadd testsub testmul testdiv testmod test
