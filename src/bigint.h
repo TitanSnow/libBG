@@ -52,7 +52,7 @@ public:
     Bigint operator%(Bigint const&) const;
     Bigint &operator%=(Bigint const &);
     friend Bigint sub_number(Bigint &p, Bigint &q);
-    friend std::vector<Bigint> divide(Bigint p, Bigint q);
+    friend void divide(Bigint p, Bigint q, std::vector<Bigint>&);
 
     //Compare
     bool operator<(const Bigint &) const;

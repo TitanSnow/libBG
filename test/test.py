@@ -20,6 +20,14 @@ from sys import exit
 op = argv[1]
 if debugMode:
 	print(op)
+def mydiv(a, b):
+	if bool(a>=0) == bool(b>=0):
+		return a // b
+	return -(abs(a) // abs(b))
+def mymod(a, b):
+	if bool(a>=0) == bool(b>=0):
+		return a % b
+	return -(abs(a) % abs(b))
 for i in range(times):
 	a = randint(lo,hi)
 	b = randint(lo,hi)
@@ -31,9 +39,9 @@ for i in range(times):
 	elif op=='mul':
 		rst = a * b
 	elif op=='div':
-		rst = a / b
+		rst = mydiv(a, b)
 	elif op=='mod':
-		rst = a % b
+		rst = mymod(a, b)
 	else:
 		exit(2)
 	if debugMode:

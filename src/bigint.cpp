@@ -293,11 +293,11 @@ Bigint sub_number(Bigint &p, Bigint &q){
       return c;
 }
 //Division
-std::vector<Bigint> divide(Bigint p, Bigint q){
+void divide(Bigint p, Bigint q, std::vector<Bigint> &answer){
 
     /*Algorithm used is "Double division algorithm"*/
 
-    std::vector<Bigint> answer;
+    answer.clear();
     int look_up_table_size=4;
     std::vector<Bigint> look_up(look_up_table_size);
     bool done_flag=false ;
@@ -352,7 +352,6 @@ std::vector<Bigint> divide(Bigint p, Bigint q){
         p=p-tmpx1;
 
     }
-    return answer;
 
 }
 
@@ -365,25 +364,45 @@ static void check_divisor(Bigint const &b)
 Bigint Bigint::operator/(Bigint const &b) const
 {
     check_divisor(b);
-    return divide(*this, b)[0];
+    bool result_positive = !(positive ^ b.positive);
+    bool origin_positive_this = positive;
+    bool origin_positive_b    = b.positive;
+    positive = true;
+    b.positive = true;
+    std::vector<Bigint> answer;
+    divide(*this, b, answer);
+    Bigint &ans = answer[0];
+    positive = origin_positive_this;
+    b.positive = origin_positive_b;
+    ans.positive = result_positive;
+    return ans;
 }
 
 Bigint &Bigint::operator/=(Bigint const &b)
 {
-    check_divisor(b);
-    return *this = divide(*this, b)[0];
+    return *this = *this / b;
 }
 
 Bigint Bigint::operator%(Bigint const &b) const
 {
     check_divisor(b);
-    return divide(*this, b)[1];
+    bool result_positive = !(positive ^ b.positive);
+    bool origin_positive_this = positive;
+    bool origin_positive_b    = b.positive;
+    positive = true;
+    b.positive = true;
+    std::vector<Bigint> answer;
+    divide(*this, b, answer);
+    Bigint &ans = answer[1];
+    positive = origin_positive_this;
+    b.positive = origin_positive_b;
+    ans.positive = result_positive;
+    return ans;
 }
 
 Bigint &Bigint::operator%=(Bigint const &b)
 {
-    check_divisor(b);
-    return *this = divide(*this, b)[1];
+    return *this = *this % b;
 }
 
 //Power
