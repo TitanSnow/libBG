@@ -11,7 +11,7 @@ class Runner:
 		return self.__output
 
 from random import randint
-times = 1000
+times = 10000
 hi = 10**10000
 lo = -hi
 debugMode = False
