@@ -27,7 +27,7 @@ def mydiv(a, b):
 def mymod(a, b):
 	if bool(a>=0) == bool(b>=0):
 		return a % b
-	return -(abs(a) % abs(b))
+	return -(abs(a) % abs(b)) if a<0 else abs(a) % abs(b)
 for i in range(times):
 	a = randint(lo,hi)
 	b = randint(lo,hi)

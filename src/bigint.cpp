@@ -386,7 +386,7 @@ Bigint &Bigint::operator/=(Bigint const &b)
 Bigint Bigint::operator%(Bigint const &b) const
 {
     check_divisor(b);
-    bool result_positive = !(positive ^ b.positive);
+    bool result_positive = positive;
     bool origin_positive_this = positive;
     bool origin_positive_b    = b.positive;
     positive = true;
@@ -396,7 +396,7 @@ Bigint Bigint::operator%(Bigint const &b) const
     Bigint &ans = answer[1];
     positive = origin_positive_this;
     b.positive = origin_positive_b;
-    ans.positive = result_positive;
+    ans.positive = ans==0 ? true : result_positive;
     return ans;
 }
 
