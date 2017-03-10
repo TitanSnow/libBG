@@ -1,3 +1,10 @@
+#Build
+
+```bash
+make prepare
+make
+```
+
 [![Build Status](https://travis-ci.org/TitanSnow/libBG.svg?branch=master)](https://travis-ci.org/TitanSnow/libBG)
 
 * [Description](#description)   
