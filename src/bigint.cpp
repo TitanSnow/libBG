@@ -426,6 +426,7 @@ Bigint Bigint::pow(int const &power, std::map<int, Bigint> &lookup)
 
 Bigint &Bigint::pow(int const &power)
 {
+    if (!power) return *this = Bigint(1);
     std::map<int, Bigint> lookup;
     if (power % 2 == 0 && !positive) {
         positive = true;
