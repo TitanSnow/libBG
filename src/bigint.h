@@ -34,6 +34,12 @@ public:
     Bigint operator-(Bigint const &) const;
     Bigint &operator-=(Bigint const &);
 
+    //Multiplication
+    Bigint operator*(Bigint const &);
+    Bigint &operator*=(Bigint const &);
+    Bigint operator*(long long const &);
+    Bigint &operator*=(int const &);
+
     //Compare
     bool operator<(const Bigint &) const;
     bool operator>(const Bigint &) const;
@@ -56,6 +62,9 @@ public:
     void clear();
     Bigint &abs();
 
+    //Power
+    Bigint &pow(int const &);
+
     //Trivia
     int digits() const;
     int trailing_zeros() const;
@@ -68,6 +77,7 @@ private:
 
 Bigint abs(Bigint);
 std::string to_string(Bigint const &);
+Bigint factorial(int);
 }
 
 #endif

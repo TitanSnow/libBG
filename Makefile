@@ -15,5 +15,9 @@ testsub: build/libDodecahedronBigint.a test/bsub.cpp test/test.h test/test.py sr
 	$(CXX) test/bsub.cpp build/libDodecahedronBigint.a -o test/testprogsub -Isrc -Itest
 	cd test;./test.py sub
 	-rm test/testprogsub
-test: testadd testsub
-.PHONY: all clean prepare testadd testsub test
+testmul: build/libDodecahedronBigint.a test/bmul.cpp test/test.h test/test.py src/bigint.h
+	$(CXX) test/bmul.cpp build/libDodecahedronBigint.a -o test/testprogmul -Isrc -Itest
+	cd test;./test.py mul
+	-rm test/testprogmul
+test: testadd testsub testmul
+.PHONY: all clean prepare testadd testsub testmul test
