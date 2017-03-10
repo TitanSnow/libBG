@@ -617,4 +617,20 @@ std::string to_string(Bigint const &value)
     return stream.str();
 }
 
+Bigint factorial(int n)
+{
+    Bigint result = 1;
+    if (n % 2) {
+        result = n;
+        --n;
+    }
+    int last = 0;
+    for (; n >= 2; n -= 2) {
+        result *= n + last;
+        last += n;
+    }
+
+    return result;
+}
+
 }
