@@ -28,4 +28,7 @@ testmod: build/libbg.a test/bmod.cpp test/test.h test/test.py src/bigint.h
 	cd test;./test.py mod
 	-rm test/testprogmod
 test: testadd testsub testmul testdiv testmod
-.PHONY: all clean prepare testadd testsub testmul testdiv testmod test
+single: build/bigint-single.cpp
+build/bigint-single.cpp: buildtool/node buildtool/include.js src/bigint.h src/bigint.cpp
+	cd src;../buildtool/node ../buildtool/include.js bigint.cpp > ../build/bigint-single.cpp;cd ..
+.PHONY: all clean prepare testadd testsub testmul testdiv testmod test single
