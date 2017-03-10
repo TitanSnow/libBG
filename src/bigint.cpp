@@ -364,6 +364,7 @@ static void check_divisor(Bigint const &b)
 Bigint Bigint::operator/(Bigint const &b) const
 {
     check_divisor(b);
+    if (*this == 0) return 0;
     bool result_positive = !(positive ^ b.positive);
     bool origin_positive_this = positive;
     bool origin_positive_b    = b.positive;
@@ -386,6 +387,7 @@ Bigint &Bigint::operator/=(Bigint const &b)
 Bigint Bigint::operator%(Bigint const &b) const
 {
     check_divisor(b);
+    if (*this == 0) return 0;
     bool result_positive = positive;
     bool origin_positive_this = positive;
     bool origin_positive_b    = b.positive;
