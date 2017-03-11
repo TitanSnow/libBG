@@ -171,37 +171,15 @@ Bigint &Bigint::operator-=(Bigint const &b)
 }
 
 //Multiplication
-static bool is_fft_needed(int a, int b)
+static bool is_fft_needed(unsigned long long a, unsigned long long b)
 {
-    return (
-        a >
-#       ifdef BIGINT_FFT_TRIGGER_A
-            BIGINT_FFT_TRIGGER_A
-#       else
-            1024
-#       endif
-        &&
-        b >
-#       ifdef BIGINT_FFT_TRIGGER_B
-            BIGINT_FFT_TRIGGER_B
-#       else
-            512
-#       endif
-        ) || (
-        b >
-#       ifdef BIGINT_FFT_TRIGGER_A
-            BIGINT_FFT_TRIGGER_A
-#       else
-            1024
-#       endif
-        &&
-        a >
-#       ifdef BIGINT_FFT_TRIGGER_B
-            BIGINT_FFT_TRIGGER_B
-#       else
-            512
-#       endif
-        );
+    return a * b >
+#   ifdef BIGINT_FFT_TRIGGER
+        BIGINT_FFT_TRIGGER
+#   else
+        1024 * 1024
+#   endif
+    ;
 }
 Bigint Bigint::operator*(Bigint const &b) const
 {
