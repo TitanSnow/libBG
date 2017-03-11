@@ -171,12 +171,89 @@ Bigint &Bigint::operator-=(Bigint const &b)
 }
 
 //Multiplication
+static bool is_fft_needed(int a, int b)
+{
+    return (
+        a >
+#       ifdef BIGINT_FFT_TRIGGER_A
+            BIGINT_FFT_TRIGGER_A
+#       else
+            1024
+#       endif
+        &&
+        b >
+#       ifdef BIGINT_FFT_TRIGGER_B
+            BIGINT_FFT_TRIGGER_B
+#       else
+            512
+#       endif
+        ) || (
+        b >
+#       ifdef BIGINT_FFT_TRIGGER_A
+            BIGINT_FFT_TRIGGER_A
+#       else
+            1024
+#       endif
+        &&
+        a >
+#       ifdef BIGINT_FFT_TRIGGER_B
+            BIGINT_FFT_TRIGGER_B
+#       else
+            512
+#       endif
+        );
+}
 Bigint Bigint::operator*(Bigint const &b) const
 {
+    if (is_fft_needed(this->number.size(), b.number.size()))
+    {
+        Bigint c;
+        bool result_positive = !(positive ^ b.positive);
+        __fft_mul(*this, b, c);
+        c.positive = result_positive;
+        return c;
+    }
+
+    const long long max_longlong =
+        static_cast<long long>(
+            static_cast<unsigned long long>(
+                static_cast<long long>(-1)
+            ) >> 1
+        );
+    const long long update_limit =
+        max_longlong - static_cast<long long>(Bigint::default_base - 1) * (Bigint::default_base - 1);
+    bool update_flag = false;
+
+    Bigint const &a = *this;
     Bigint c;
-    bool result_positive = !(positive ^ b.positive);
-    __fft_mul(*this, b, c);
-    c.positive = result_positive;
+    std::vector<long long> number(a.number.size()+b.number.size());
+    for(std::vector<int>::const_iterator
+        it1(a.number.begin()); it1!=a.number.end(); ++it1){
+        update_flag = false;
+        for(std::vector<int>::const_iterator
+            it2(b.number.begin()); it2!=b.number.end(); ++it2)
+            update_flag = ((
+                number[
+                    (it1 - a.number.begin()) +
+                    (it2 - b.number.begin()) ]
+                += static_cast<long long>(*it1) * *it2
+            ) > update_limit || update_flag);
+        if(update_flag)
+            for(std::vector<long long>::iterator it(number.begin() + 1);
+                it < number.end(); ++it){
+                *it += *(it - 1) / Bigint::default_base;
+                *(it - 1) %= Bigint::default_base;
+            }
+    }
+    if(!update_flag)
+        for(std::vector<long long>::iterator it(number.begin() + 1);
+            it < number.end(); ++it){
+            *it += *(it - 1) / Bigint::default_base;
+            *(it - 1) %= Bigint::default_base;
+        }
+    c.positive = !(a.positive ^ b.positive);
+    std::copy(number.begin(), number.end(), std::back_inserter(c.number));
+    c.delete_precode_zero();
     return c;
 }
 
