@@ -1,11 +1,9 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include <algorithm>
-#include <iterator>
 #include <cmath>
 #include <cstdio>
-#include "bigint.h"
+#include "fft.h"    // included bigint.h
 
 namespace Dodecahedron
 {
@@ -14,15 +12,13 @@ namespace Dodecahedron
 Bigint::Bigint()
 {
     positive = true;
-    base = Bigint::default_base;
 }
 Bigint::Bigint(const Bigint &b)
         : number(b.number),
-          positive(b.positive),
-          base(b.base) {}
+          positive(b.positive)
+          {}
 Bigint::Bigint(long long value)
 {
-    base = Bigint::default_base;
     if (value < 0) {
         positive = false;
         value *= -1;
@@ -31,8 +27,8 @@ Bigint::Bigint(long long value)
     }
 
     while (value) {
-        number.push_back((int) (value % base));
-        value /= base;
+        number.push_back((int) (value % Bigint::default_base));
+        value /= Bigint::default_base;
     }
 }
 
@@ -40,7 +36,6 @@ Bigint::Bigint(std::string stringInteger)
 {
     int size = stringInteger.length();
 
-    base = Bigint::default_base;
     positive = (stringInteger[0] != '-');
 
     while (true) {
@@ -109,9 +104,9 @@ Bigint &Bigint::operator+=(Bigint const &b)
             sum += *it2;
             ++it2;
         }
-        *it1 = sum % base;
+        *it1 = sum % Bigint::default_base;
         ++it1;
-        sum /= base;
+        sum /= Bigint::default_base;
     }
     if (sum) number.push_back(1);
 
@@ -153,18 +148,18 @@ Bigint &Bigint::operator-=(Bigint const &b)
             ++it2;
         }
         if (dif < 0) {
-            *(it1 - 1) = (dif + base) % base;
+            *(it1 - 1) = (dif + Bigint::default_base) % Bigint::default_base;
             dif = -1;
         } else {
-            *(it1 - 1) = dif % base;
-            dif /= base;
+            *(it1 - 1) = dif % Bigint::default_base;
+            dif /= Bigint::default_base;
         }
     }
     if (dif < 0) {
         std::string newstr("1");
         int c_seg = number.size();
         while(c_seg--)
-            for(int i=1; i<base; i*=10)
+            for(int i=1; i<Bigint::default_base; i*=10)
                 newstr += "0";
         *this = Bigint(newstr) - *this;
         positive = false;
@@ -177,46 +172,10 @@ Bigint &Bigint::operator-=(Bigint const &b)
 //Multiplication
 Bigint Bigint::operator*(Bigint const &b) const
 {
-    const long long max_longlong =
-        static_cast<long long>(
-            static_cast<unsigned long long>(
-                static_cast<long long>(-1)
-            ) >> 1
-        );
-    const long long update_limit =
-        max_longlong - static_cast<long long>(base - 1) * (base - 1);
-    bool update_flag = false;
-
-    Bigint const &a = *this;
     Bigint c;
-    std::vector<long long> number(a.number.size()+b.number.size());
-    for(std::vector<int>::const_iterator
-        it1(a.number.begin()); it1!=a.number.end(); ++it1){
-        update_flag = false;
-        for(std::vector<int>::const_iterator
-            it2(b.number.begin()); it2!=b.number.end(); ++it2)
-            update_flag = ((
-                number[
-                    (it1 - a.number.begin()) +
-                    (it2 - b.number.begin()) ]
-                += static_cast<long long>(*it1) * *it2
-            ) > update_limit || update_flag);
-        if(update_flag)
-            for(std::vector<long long>::iterator it(number.begin() + 1);
-                it < number.end(); ++it){
-                *it += *(it - 1) / base;
-                *(it - 1) %= base;
-            }
-    }
-    if(!update_flag)
-        for(std::vector<long long>::iterator it(number.begin() + 1);
-            it < number.end(); ++it){
-            *it += *(it - 1) / base;
-            *(it - 1) %= base;
-        }
-    c.positive = !(a.positive ^ b.positive);
-    std::copy(number.begin(), number.end(), std::back_inserter(c.number));
-    c.delete_precode_zero();
+    bool result_positive = !(positive ^ b.positive);
+    __fft_mul(*this, b, c);
+    c.positive = result_positive;
     return c;
 }
 
@@ -247,8 +206,8 @@ Bigint sub_number(Bigint &p, Bigint &q){
 
           tmpx0 = to_string(*i);
           int ssss = tmpx0.size();
-          if(i!=p.number.end()-1 && ssss<9){
-              tmpx0 = std::string(9-ssss,'0') + tmpx0;
+          if(i!=p.number.end()-1 && ssss<Bigint::default_digits_per_element){
+              tmpx0 = std::string(Bigint::default_digits_per_element-ssss,'0') + tmpx0;
           }
 
           if(window_size - ssss < 0){
@@ -280,8 +239,8 @@ Bigint sub_number(Bigint &p, Bigint &q){
           else{
               window_size++;
               tmpx0 = to_string(*i);
-              if(i!=p.number.end()-1 && tmpx0.size()<9){
-                  tmpx0 = std::string(9-tmpx0.size(),'0') + tmpx0;
+              if(i!=p.number.end()-1 && tmpx0.size()<Bigint::default_digits_per_element){
+                  tmpx0 = std::string(Bigint::default_digits_per_element-tmpx0.size(),'0') + tmpx0;
               }
               tmpx0 = tmpx0[0];
               tmpx1 = tmpx1 + tmpx0;
@@ -495,8 +454,8 @@ Bigint Bigint::operator=(const long long &a)
     number.clear();
     long long t = a;
     do {
-        number.push_back((int) (t % base));
-        t /= base;
+        number.push_back((int) (t % Bigint::default_base));
+        t /= Bigint::default_base;
     } while (t != 0);
 
     return *this;
