@@ -46,6 +46,7 @@ public:
     //Multiplication
     Bigint operator*(Bigint const &) const;
     Bigint &operator*=(Bigint const &);
+    bool force_fft;
 
     //Division & modulo operation
     Bigint operator/(Bigint const&) const;

@@ -11,15 +11,16 @@ namespace Dodecahedron
 
 //Constructor
 Bigint::Bigint()
-{
-    positive = true;
-}
+        : positive(true),
+          force_fft(false)
+          {}
 Bigint::Bigint(const Bigint &b)
         : number(b.number),
-          positive(b.positive)
+          positive(b.positive),
+          force_fft(false)
           {}
 Bigint::Bigint(long long value)
-{
+:force_fft(false){
     if (value < 0) {
         positive = false;
         value *= -1;
@@ -34,7 +35,7 @@ Bigint::Bigint(long long value)
 }
 
 Bigint::Bigint(std::string stringInteger)
-{
+:force_fft(false){
     int size = stringInteger.length();
 
     positive = (stringInteger[0] != '-');
@@ -183,7 +184,7 @@ static bool is_fft_needed(unsigned long long a, unsigned long long b)
 }
 Bigint Bigint::operator*(Bigint const &b) const
 {
-    if (is_fft_needed(this->number.size(), b.number.size()))
+    if (force_fft || b.force_fft || is_fft_needed(this->number.size(), b.number.size()))
     {
         Bigint c;
         bool result_positive = !(positive ^ b.positive);
