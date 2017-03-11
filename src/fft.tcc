@@ -12,7 +12,7 @@ class __fft
     typedef std::vector<cp> arr;
     arr a,b,w,tt;
     int n;
-    const real pi=std::acos((real)-1.0);
+    const real pi;
     int cpy(arr &d,Bigint const &s)
     {
         d.clear();
@@ -72,6 +72,7 @@ class __fft
         }
     }
 public:
+    __fft():pi(std::acos((real)-1.0)) {}
     void set(Bigint const &a,Bigint const &b)
     {
         n=1;
