@@ -1,8 +1,10 @@
+CFLAGS=-O3 -ffast-math -march=native -DNDEBUG
+CXXFLAGS=$(CFLAGS) -fno-rtti
 all: build/libbg.a
 prepare:
 	-mkdir build
-build/libbg.a: src/bigint.cpp src/bigint.h
-	$(CXX) -c src/bigint.cpp -o build/bigint.o -O3
+build/libbg.a: src/bigint.cpp src/bigint.h src/fft.h src/fft.tcc
+	$(CXX) $(CXXFLAGS) -c src/bigint.cpp -o build/bigint.o
 	ar rc build/libbg.a build/bigint.o
 	rm build/bigint.o
 clean:

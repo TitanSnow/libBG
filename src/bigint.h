@@ -9,6 +9,7 @@
 
 namespace Dodecahedron
 {
+class __fft;
 class Bigint
 {
 public:
@@ -18,14 +19,14 @@ public:
         explicit arithmetic_error(const std::string& what_arg)
             : std::runtime_error(what_arg) {}
     };
+    friend class __fft;
 
 private:
     std::vector<int> number;
     // don't modify this directly through const. use flip_positive
     mutable bool positive;
-    int base;
-    static const int default_base=1000000000;
-    static const int default_digits_per_element=9;
+    static const int default_base=100000000;
+    static const int default_digits_per_element=8;
 
 public:
     //Constructors
@@ -45,6 +46,7 @@ public:
     //Multiplication
     Bigint operator*(Bigint const &) const;
     Bigint &operator*=(Bigint const &);
+    bool force_fft;
 
     //Division & modulo operation
     Bigint operator/(Bigint const&) const;
