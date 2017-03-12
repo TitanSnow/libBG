@@ -426,7 +426,7 @@ Bigint &Bigint::operator%=(Bigint const &b)
 
 //Power
 
-Bigint Bigint::pow(int const &power, std::map<int, Bigint> &lookup)
+Bigint Bigint::pow(int const power, std::map<int, Bigint> &lookup)
 {
     if (power == 1) return *this;
     if (lookup.count(power)) return lookup[power];
@@ -441,7 +441,7 @@ Bigint Bigint::pow(int const &power, std::map<int, Bigint> &lookup)
     return lookup[power];
 }
 
-Bigint &Bigint::pow(int const &power)
+Bigint &Bigint::pow(int const power)
 {
     if (!power) return *this = Bigint(1);
     std::map<int, Bigint> lookup;
@@ -507,7 +507,7 @@ bool Bigint::operator!=(Bigint const &b) const
 }
 
 //Allocation
-Bigint Bigint::operator=(const long long &a)
+Bigint Bigint::operator=(const long long a)
 {
     number.clear();
     long long t = a;
@@ -671,6 +671,11 @@ Bigint factorial(int n)
     }
 
     return result;
+}
+
+Bigint pow(Bigint a, int const b)
+{
+    return a.pow(b);
 }
 
 }

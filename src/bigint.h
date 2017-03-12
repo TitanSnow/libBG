@@ -65,7 +65,7 @@ public:
     bool operator!=(const Bigint &) const;
 
     //Allocation
-    Bigint operator=(const long long &);
+    Bigint operator=(const long long);
 
     //Input&Output
     friend std::istream &operator>>(std::istream &, Bigint &);
@@ -76,14 +76,14 @@ public:
     Bigint &abs();
 
     //Power
-    Bigint &pow(int const &);
+    Bigint &pow(int const);
 
     //Trivia
     int digits() const;
     int trailing_zeros() const;
 private:
     int segment_length(int) const;
-    Bigint pow(int const &, std::map<int, Bigint> &);
+    Bigint pow(int const, std::map<int, Bigint> &);
     int compare(Bigint const &) const; //0 a == b, -1 a < b, 1 a > b
     void flip_positive() const;
     void delete_precode_zero();
@@ -92,6 +92,7 @@ private:
 Bigint abs(Bigint);
 std::string to_string(Bigint const &);
 Bigint factorial(int);
+Bigint pow(Bigint, int const);
 }
 
 #endif
