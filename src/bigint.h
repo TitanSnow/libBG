@@ -81,6 +81,7 @@ public:
     //Trivia
     int digits() const;
     int trailing_zeros() const;
+    int to_builtin() const {return number.empty() ? 0 : number.front();}
 private:
     int segment_length(int) const;
     Bigint pow(int const, std::map<int, Bigint> &);
