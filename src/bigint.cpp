@@ -3,6 +3,7 @@
 #include <map>
 #include <cmath>
 #include <cstdio>
+#include <cctype>
 // included bigint.h
 #include "fft.h"
 
@@ -602,7 +603,30 @@ std::ostream &operator<<(std::ostream &out, Bigint const &a)
 std::istream &operator>>(std::istream &in, Bigint &a)
 {
     std::string str;
-    in >> str;
+    int ch;
+    if (!in)
+    {
+        a = 0;
+        return in;
+    }
+    while (std::isspace(ch = in.get()));
+    if (!in)
+    {
+        a = 0;
+        return in;
+    }
+    if (ch == '-')
+        str += (char) ch;
+    else
+        in.unget();
+    while (std::isdigit(ch = in.get()))
+        str += (char) ch;
+    if (in) in.unget();
+    if (str == "-")
+    {
+        a = 0;
+        return in;
+    }
 
     a = str;
 
