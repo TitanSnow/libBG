@@ -33,4 +33,6 @@ test: testadd testsub testmul testdiv testmod
 single: build/bigint-single.cpp
 build/bigint-single.cpp: buildtool/node buildtool/include.js src/bigint.h src/bigint.cpp
 	cd src;../buildtool/node ../buildtool/include.js bigint.cpp > ../build/bigint-single.cpp;cd ..
+test/lisp: build/libbg.a src/bigint.h test/lisp.cpp
+	g++ test/lisp.cpp build/libbg.a -Isrc -o test/lisp
 .PHONY: all clean prepare testadd testsub testmul testdiv testmod test single

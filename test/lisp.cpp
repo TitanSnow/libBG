@@ -103,6 +103,24 @@ func(fc){
 func(pw){
     return ReturnValue(pow(args.front().val,args.back().val.to_builtin()));
 }
+func(lt){
+    return ReturnValue((int)(args.front().val<args.back().val));
+}
+func(gt){
+    return ReturnValue((int)(args.front().val>args.back().val));
+}
+func(lte){
+    return ReturnValue((int)(args.front().val<=args.back().val));
+}
+func(gte){
+    return ReturnValue((int)(args.front().val>=args.back().val));
+}
+func(eq){
+    return ReturnValue((int)(args.front().val==args.back().val));
+}
+func(neq){
+    return ReturnValue((int)(args.front().val!=args.back().val));
+}
 void regFunc(){
     table["print"]=pr;
     table["+"]=pl;
@@ -113,4 +131,10 @@ void regFunc(){
     table["abs"]=ab;
     table["fac"]=fc;
     table["pow"]=pw;
+    table["<"]=lt;
+    table[">"]=gt;
+    table["<="]=lte;
+    table[">="]=gte;
+    table["=="]=eq;
+    table["!="]=neq;
 }
