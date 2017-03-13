@@ -175,6 +175,9 @@ Bigint &Bigint::operator-=(Bigint const &b)
 //Multiplication
 static bool is_fft_needed(unsigned long long a, unsigned long long b)
 {
+#   ifdef BIGINT_DISABLE_FFT
+    return false;
+#   endif
     return a * b >
 #   ifdef BIGINT_FFT_TRIGGER
         BIGINT_FFT_TRIGGER
