@@ -1,9 +1,18 @@
 language: cpp
 
+sudo: false
+
+os:
+  - linux
+  - osx
+
+dist: trusty
+
 compiler:
   - gcc
+  - clang
 
 before_script:
   - make prepare
 
-script: make test test_lisp
+script: make test test_lisp -j2
