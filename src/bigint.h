@@ -32,7 +32,7 @@ public:
     //Constructors
     Bigint();
     Bigint(long long);
-    Bigint(std::string);
+    Bigint(const std::string&);
     Bigint(const Bigint& b);
 
     //Adding
@@ -53,8 +53,8 @@ public:
     Bigint &operator/=(Bigint const &);
     Bigint operator%(Bigint const&) const;
     Bigint &operator%=(Bigint const &);
-    friend Bigint sub_number(Bigint &p, Bigint &q);
-    friend void divide(Bigint p, Bigint q, std::vector<Bigint>&);
+    friend void sub_number(Bigint const&, Bigint const&, Bigint&);
+    friend void divide(Bigint, Bigint const&, Bigint&, Bigint&);
 
     //Compare
     bool operator<(const Bigint &) const;
