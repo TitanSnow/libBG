@@ -16,7 +16,7 @@ class Runner:
 	def get_running_time(self):
 		return self.__end_time - self.__start_time
 
-times = 1000
+times = 100
 debugMode = False
 from sys import exit
 if __name__ == "__main__":
