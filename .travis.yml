@@ -6,4 +6,4 @@ compiler:
 before_script:
   - make prepare
 
-script: make test
+script: make test test_lisp
