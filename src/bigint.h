@@ -38,10 +38,14 @@ public:
     //Adding
     Bigint operator+(Bigint const &) const;
     Bigint &operator+=(Bigint const &);
+    Bigint &operator++() {return *this += 1;}
+    Bigint operator++(int) {Bigint bk(*this); ++*this; return bk;}
 
     //Subtraction
     Bigint operator-(Bigint const &) const;
     Bigint &operator-=(Bigint const &);
+    Bigint &operator--() {return *this -= 1;}
+    Bigint operator--(int) {Bigint bk(*this); --*this; return bk;}
 
     //Multiplication
     Bigint operator*(Bigint const &) const;
