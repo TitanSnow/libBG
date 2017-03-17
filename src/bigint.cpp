@@ -502,16 +502,9 @@ bool Bigint::operator!=(Bigint const &b) const
 }
 
 //Allocation
-Bigint Bigint::operator=(const long long a)
+Bigint &Bigint::operator=(const long long a)
 {
-    number.clear();
-    long long t = a;
-    do {
-        number.push_back((int) (t % Bigint::default_base));
-        t /= Bigint::default_base;
-    } while (t != 0);
-
-    return *this;
+    return *this = Bigint(a);
 }
 
 //Trivia

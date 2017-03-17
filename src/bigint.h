@@ -65,7 +65,7 @@ public:
     bool operator!=(const Bigint &) const;
 
     //Allocation
-    Bigint operator=(const long long);
+    Bigint &operator=(const long long);
 
     //Input&Output
     friend std::istream &operator>>(std::istream &, Bigint &);
