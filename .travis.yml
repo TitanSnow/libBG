@@ -15,4 +15,4 @@ compiler:
 before_script:
   - make prepare
 
-script: make test test_lisp -j2
+script: make test -j2
