@@ -7,7 +7,7 @@ function housekeeping()  -- default options
 
     if is_mode("release") then
         add_cxflags("-march=native")
-        set_optimize("aggressive")
+        set_optimize("fastest")
 
     elseif is_mode("debug") then
         set_optimize("fast")
