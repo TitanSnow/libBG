@@ -1,6 +1,6 @@
 language: cpp
 
-sudo: false
+sudo: required
 
 os:
   - linux
@@ -13,6 +13,16 @@ compiler:
   - clang
 
 before_script:
-  - make prepare
+  - git clone --depth=1 https://github.com/tboox/xmake.git
+  - cd xmake;sudo ./install;cd ..
 
-script: make test -j2
+script:
+  - xmake -v
+  - cp test/test.py build
+  - cd build
+  - ./test.py add
+  - ./test.py sub
+  - ./test.py mul
+  - ./test.py div
+  - ./test.py mod
+  - cd ..
