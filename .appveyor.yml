@@ -19,6 +19,7 @@ install:
   - cmd: C:\xmake\xmake.exe --version
 
 build_script:
+  - cmd: if %platform%==Win64 C:\xmake\xmake.exe f -a x64
   - cmd: C:\xmake\xmake.exe -v
 
 test_script:
