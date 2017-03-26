@@ -7,9 +7,7 @@ image:
 
 shallow_clone: true
 
-platform:
-  - x86
-  - x64
+platform: x86
 
 install:
   - ps: Invoke-WebRequest "https://github.com/tboox/xmake/releases/download/v2.1.2/xmake-v2.1.2.exe" -OutFile "xmake-installer.exe"
@@ -19,15 +17,15 @@ install:
   - cmd: C:\xmake\xmake.exe --version
 
 build_script:
-  - cmd: if %platform%==Win64 C:\xmake\xmake.exe f -a x64
   - cmd: C:\xmake\xmake.exe -v
 
 test_script:
-  - copy /Y test\test.py build
-  - cd build
-  - dir
-  - python test.py add
-  - python test.py sub
-  - python test.py mul
-  - python test.py div
-  - python test.py mod
+  - cmd: copy /Y test\test.py build
+  - ps: cd build
+  - ps: ls
+  - ps: $jadd = Start-Job -ScriptBlock {python test.py add} -InitializationScript {cd C:\projects\libbg\build}
+  - ps: $jsub = Start-Job -ScriptBlock {python test.py sub} -InitializationScript {cd C:\projects\libbg\build}
+  - ps: $jmul = Start-Job -ScriptBlock {python test.py mul} -InitializationScript {cd C:\projects\libbg\build}
+  - ps: $jdiv = Start-Job -ScriptBlock {python test.py div} -InitializationScript {cd C:\projects\libbg\build}
+  - ps: $jmod = Start-Job -ScriptBlock {python test.py mod} -InitializationScript {cd C:\projects\libbg\build}
+  - ps: Receive-Job -Job $jadd,$jsub,$jmul,$jdiv,$jmod -Wait -Force -AutoRemoveJob
