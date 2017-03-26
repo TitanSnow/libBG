@@ -12,6 +12,8 @@ xmake
 [![Build Status](https://travis-ci.org/TitanSnow/libBG.svg?branch=master)](https://travis-ci.org/TitanSnow/libBG)
 [![Build status](https://ci.appveyor.com/api/projects/status/sn4qgh654fs6u2nm?svg=true)](https://ci.appveyor.com/project/TitanSnow/libbg)
 
+*Note: APIs list below may be out of date. Check header file to know details*
+
 * [Description](#description)   
 * [Operators](#operators)
   * [Addition](#addition)
@@ -20,7 +22,6 @@ xmake
   * [Division](#division)
   * [Allocation](#allocation)
   * [Comparison](#comparison)
-  * [Access](#access)
   * [Streaming operators](#streaming-operators)
 * [Methods](#methods)
   * [clear](#clear)
@@ -32,7 +33,7 @@ xmake
   * [to_string](#to_stringbigint)
 
 # Description
-Bigint class provides math operations for arbitrarily large numbers. You know the limit is reached when your computer freezes.
+libBG provides math operations for arbitrarily large numbers. You know the limit is reached when your computer freezes.
 
 # Operators
 ## Addition
@@ -89,12 +90,6 @@ if(a < b) cout << "A is less than B";
 if(a > b) cout << "A is larger than B";
 if(a >= b) cout << "A is larger than B or equal to it";
 if(a <= b) cout << "A is smaller than B or equal to it";
-```
-## Access
-```C++
-Dodecahedron::Bigint a = 159753;
-a.pow(15); //a^15, 1126510743106482...
-cout << a[3]; // 6 is the 4th digit
 ```
 ## Stream operators
 ```C++
