@@ -1,141 +1,44 @@
-# Build
+# libBG
+A *lightwight* *high-speed* *good-designed* big interger library for C++ with *FFT*
 
-```bash
-make prepare
-make
-```
-If you have [xmake](https://github.com/tboox/xmake), or you're not using UNIX-like OS, you could
-```bash
-xmake
-```
+## Lightwight
+### Total about 20KB
+20KB source code with complete biginteger implement. About 40KB<sup>^</sup> compiled. Be able to plug in every project running everywhere.
 
-[![Build Status](https://travis-ci.org/TitanSnow/libBG.svg?branch=master)](https://travis-ci.org/TitanSnow/libBG)
-[![Build status](https://ci.appveyor.com/api/projects/status/sn4qgh654fs6u2nm?svg=true)](https://ci.appveyor.com/project/TitanSnow/libbg)
+<sub>^: g++ on linux with -Os</sub>
 
-*Note: APIs list below may be out of date. Check header file to know details*
+### No dependence
+Pure *C++98* code. No dependence. Can be compiled with any standard-supported compiler as static or shared library within one step.
 
-* [Description](#description)   
-* [Operators](#operators)
-  * [Addition](#addition)
-  * [Subtraction](#subtraction)
-  * [Multiplication](#multiplication)
-  * [Division](#division)
-  * [Allocation](#allocation)
-  * [Comparison](#comparison)
-  * [Streaming operators](#streaming-operators)
-* [Methods](#methods)
-  * [clear](#clear)
-  * [abs](#abs)
-  * [digits](#digits)
-  * [trailing_zeros](#trailing_zeros)
-* [Functions](#functions)
-  * [abs](#absbigint)
-  * [to_string](#to_stringbigint)
+### Pack as single
+<code>make single</code> generate single file output and can be embedded into any code. Just copy it then enjoy it.
 
-# Description
-libBG provides math operations for arbitrarily large numbers. You know the limit is reached when your computer freezes.
+## High Speed
+### Faster than Python<sup>^</sup>
+For random numbers with 10K digits:
 
-# Operators
-## Addition
-```C++
-Dodecahedron::Bigint a,b,c;
-c = a + b;
-c += a;
-c = a + 6;
-c += 6;
-```
-## Subtraction
-```C++
-Dodecahedron::Bigint a,b,c;
-c = a - b;
-c -= a;
-```
-## Multiplication
-```C++
-Dodecahedron::Bigint a,b,c;
-c = a * b;
-c *= a;
-c = a * 6;
-c *= 6;
-```
-## Division
-```C++
-Dodecahedron::Bigint a,b,c;
-c = a / b;
-c /= a;
-c = a / 6;
-c /= 6;
-```
-## Modulo
-```C++
-Dodecahedron::Bigint a,b,c;
-c = a % b;
-c %= a;
-c = a % 6;
-c %= 6;
-```
-## Allocation
-```C++
-Dodecahedron::Bigint a = 12345;
-Dodecahedron::Bigint b;
-b = 159753;
-```
-## Comparison
-```C++
-Dodecahedron::Bigint a = 159753;
-Dodecahedron::Bigint b = 1634687496;
+  * 7.52425289154s / 10K times addition
+  * 7.51592826843s / 10K times subtraction
+  * 33.2661168575s / 10K times multiplication
+  * 11.1092059612s / 10K times division
+  * 12.4199271202s / 10K times modulo
 
-if(a == b) cout << "A is the same as B";
-if(a < b) cout << "A is less than B";
-if(a > b) cout << "A is larger than B";
-if(a >= b) cout << "A is larger than B or equal to it";
-if(a <= b) cout << "A is smaller than B or equal to it";
-```
-## Stream operators
-```C++
-Dodecahedron::Bigint a,b;
-cin >> a >> b;
-cout << a*b;
-```
-# Methods
-## clear()
-Clears the Dodecahedron::Bigint, essentially making it equal to 0.
-```C++
-Dodecahedron::Bigint a = 4558;
-cout << a.pow(486);;  // ~1.46 * 10^1778
-a.clear();
-cout << a; //0
-```
-## abs()
-Absolute value.
-```C++
-Dodecahedron::Bigint a = -4558;
-cout << a.abs() // 4558
-```
-## digits()
-Returns the number of digits.
-```C++
-Dodecahedron::Bigint a = 4558;
-cout << a.pow(486).digits(); // 4558^486 = 1779 digit number
-```
-## trailing_zeros()
-Returns the number of trailing zeros.
-```C++
-Dodecahedron::Bigint a = 4558;
-a.pow(486);
-cout << a.trailing_zeros(); //972
-```
-# Functions
-## abs(Bigint)
-Same as [abs](#abs), but returns a new instance;
-```C++
-Dodecahedron::Bigint a = -455897864531248;
-cout << abs(a) // 455897864531248
-```
-## to_string(Bigint)
-Converts the big integer to a string.
-```C++
-string str;
-Dodecahedron::Bigint a = 455897864531248;
-str = to_string(a);
-```
+<sub>^: Runs on travisCI. Data from test #99.1 g++ on linux with -O3 & -ffast-math. Not accurate</sub>
+
+### FFT inside<sup>^</sup>
+Fascinating *Fast Fourier Transformation* (FFT) used in multiplication. Deal with huge numbers with *O(nlgn)*
+
+<sub>^: smart enable</sub>
+
+### Great Algorithm
+Division uses *Double Division Algorithm*. Power uses map to speed. Everything is for speed.
+
+## Good Designed
+### It is a Class
+Nothing else, just a C++ class with beautiful interface.
+
+### It feels like *Native*
+Addition is just <code>a+b</code>. Nothing is against natural thinking.
+
+### It is Simple
+Wanna to see [detail](ORIGIN.md)?
