@@ -6,8 +6,7 @@ set_warnings("all")
 add_includedirs("$(buildir)")
 
 if is_mode("release") then
-    add_cxflags("-march=native")
-    set_optimize("fastest")
+    set_optimize("aggressive")
 
 elseif is_mode("debug") then
     set_optimize("fast")
@@ -18,10 +17,7 @@ target("bg")  -- main target
     set_kind("$(kind)")
     add_files("src/bigint.cpp")
     add_headers("src/bigint.h")
-
     add_defines("BIGINT_FFT_TRIGGER=0x1000000")
-    add_cxflags("-ffast-math")
-    if is_mode("release") then add_cxxflags("-fno-rtti") end
 target_end()
 
 function maketest(op)  -- test targets
