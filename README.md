@@ -1,6 +1,8 @@
 # libBG
 A *lightwight* *high-speed* *good-designed* big interger library for C++ with *FFT*
 
+[More details](ORIGIN.md)
+
 ## Lightwight
 ### Total about 20KB
 20KB source code with complete biginteger implement. About 40KB<sup>^</sup> compiled. Be able to plug in every project running everywhere.

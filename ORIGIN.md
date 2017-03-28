@@ -4,14 +4,34 @@
 make prepare
 make
 ```
-If you have [xmake](https://github.com/tboox/xmake), or you're not using UNIX-like OS, you could
+If you have [xmake](https://github.com/tboox/xmake), or you're not using UNIX-like OS, or you wanna dynamic library, you could
 ```bash
 xmake
 ```
+Any compiler that supports C++98 is fine. But I suggest use VS201x instead of VS200x.
+
+## Linking to your project
+
+libBG supports both static and dynamic linking. Default is to be compiled as static library. If you wanna dynamic library, configure xmake as this:
+```bash
+xmake f -k shared # set build kind
+xmake             # this is build step
+```
+After compiling, you may get static library named <code>libbg.a</code> on Linux or <code>bg.lib</code> on Windows, or shared library named <code>libbg.so</code> on Linux or <code>bg.dll</code> on Windows.
+
+Get <code>src/bigint.h</code> into your include dir, then
+```C++
+#include "bigint.h"
+// ... Your code ..
+```
+Link your program with libBG while compiling. This step might be vary between different platform and compiler. You might be interested in <code>xmake package</code> and use xmake in your project so that everything would be same crossing platforms.
 
 [![Build Status](https://travis-ci.org/TitanSnow/libBG.svg?branch=master)](https://travis-ci.org/TitanSnow/libBG)
 [![Build status](https://ci.appveyor.com/api/projects/status/sn4qgh654fs6u2nm?svg=true)](https://ci.appveyor.com/project/TitanSnow/libbg)
 
+# [Contributing](CONTRIBUTING.md)
+
+# APIs
 *Note: APIs list below may be out of date. Check header file to know details*
 
 * [Description](#description)   
