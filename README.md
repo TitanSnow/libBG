@@ -19,13 +19,13 @@ Pure *C++98* code. No dependence. Can be compiled with any standard-supported co
 ### Faster than Python<sup>^</sup>
 For random numbers with 10K digits:
 
-  * 7.52425289154s / 10K times addition
-  * 7.51592826843s / 10K times subtraction
-  * 33.2661168575s / 10K times multiplication
-  * 11.1092059612s / 10K times division
-  * 12.4199271202s / 10K times modulo
+  * 0.06s / 10K times addition
+  * 0.196s / 10K times subtraction
+  * 33.5s / 10K times multiplication
+  * 0.116s / 10K times division
+  * 0.256s / 10K times modulo
 
-<sub>^: Runs on travisCI. Data from test #99.1 g++ on linux with -O3 & -ffast-math. Not accurate</sub>
+<sub>^: Runs on travisCI. Data from test #132.1 g++ on linux with -Ofast. Not accurate</sub>
 
 ### FFT inside<sup>^</sup>
 Fascinating *Fast Fourier Transformation* (FFT) used in multiplication. Deal with huge numbers with *O(nlgn)*
