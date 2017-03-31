@@ -1,6 +1,6 @@
 language: cpp
 
-sudo: required
+sudo: false
 
 os:
   - linux
@@ -14,7 +14,11 @@ compiler:
 
 before_script:
   - git clone --depth=1 https://github.com/tboox/xmake.git
-  - cd xmake;sudo ./install;cd ..
+  - cd xmake
+  - make build -j
+  - make install prefix=~/local
+  - export PATH=$PATH:~/local/bin
+  - cd ..
 
 script:
   - xmake -v
