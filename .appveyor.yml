@@ -18,7 +18,7 @@ install:
 
 build_script:
   - cmd: if %platform%==x64 C:\xmake\xmake.exe f -a x64
-  - cmd: C:\xmake\xmake.exe -v
+  - cmd: C:\xmake\xmake.exe -v -a
 
 test_script:
   - cmd: git checkout -f b28ac7e1471e644457959c819a4ec58b4e0cf3b4

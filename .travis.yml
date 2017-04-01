@@ -21,7 +21,7 @@ before_script:
   - cd ..
 
 script:
-  - xmake -v
+  - xmake -v -a
   - cp test/test.py build
   - cd build
   - ./test.py add

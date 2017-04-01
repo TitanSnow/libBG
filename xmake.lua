@@ -1,4 +1,5 @@
 set_project("libBG")
+set_xmakever("2.1.3")
 
 -- default global options for each targets
 set_languages("c99","cxx98")
@@ -22,6 +23,7 @@ target_end()
 
 function maketest(op)  -- test targets
     target("testprog" .. op)
+        set_default(false)
         add_deps("bg")
         set_kind("binary")
 
