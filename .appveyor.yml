@@ -13,6 +13,8 @@ install:
   - ps: Invoke-WebRequest "https://github.com/tboox/xmake/releases/download/v2.1.2/xmake-v2.1.2.exe" -OutFile "xmake-installer.exe"
   - cmd: dir
   - cmd: xmake-installer.exe /S /D=C:\xmake
+  - cmd: git clone --depth=1 https://github.com/tboox/xmake.git
+  - ps: Copy-Item -Recurse -Force xmake\xmake\* C:\xmake
   - cmd: dir C:\xmake
   - cmd: C:\xmake\xmake.exe --version
 
