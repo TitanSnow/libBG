@@ -1,21 +1,5 @@
 #!/usr/bin/env python
-import subprocess
-from time import time
-class Runner:
-	def __init__(self, args):
-		self.__process = subprocess.Popen(args, universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-	def run(self, input):
-		self.__start_time = time()
-		self.__output=self.__process.communicate(input)[0]
-		self.__end_time = time()
-
-	def get_output(self):
-		return self.__output
-
-	def get_running_time(self):
-		return self.__end_time - self.__start_time
-
+from runner import get_total_time,Runner
 times = 100
 debugMode = False
 from sys import exit

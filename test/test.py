@@ -1,15 +1,5 @@
 #!/usr/bin/env python
-import subprocess
-class Runner:
-	def __init__(self, args):
-		self.__process = subprocess.Popen(args, universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-	def run(self, input):
-		self.__output=self.__process.communicate(input)[0]
-
-	def get_output(self):
-		return self.__output
-
+from runner import get_total_time,Runner
 from random import randint
 times = 10000
 hi = 10**10000
@@ -54,6 +44,5 @@ for i in range(times):
 	if opt!=str(rst):
 		if debugMode:print(opt)
 		exit(1)
-import resource as res
-total_time=res.getrusage(res.RUSAGE_CHILDREN).ru_utime
+total_time=get_total_time()
 print(op+' totaltime= '+str(total_time)+'s')
