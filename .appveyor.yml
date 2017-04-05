@@ -17,14 +17,16 @@ install:
   - ps: Copy-Item -Recurse -Force xmake\xmake\* C:\xmake
   - cmd: dir C:\xmake
   - cmd: C:\xmake\xmake.exe --version
+  - cmd: pip install pypiwin32
+
+before_build:
+  - ps: Copy-Item -Recurse test build
 
 build_script:
   - cmd: if %platform%==x64 C:\xmake\xmake.exe f -a x64
   - cmd: C:\xmake\xmake.exe -v -a
 
 test_script:
-  - cmd: git checkout -f b28ac7e1471e644457959c819a4ec58b4e0cf3b4
-  - cmd: copy /Y test\test.py build
   - cmd: dir build
   - ps: $jadd = Start-Job -ScriptBlock {python test.py add} -InitializationScript {cd C:\projects\libbg\build}
   - ps: $jsub = Start-Job -ScriptBlock {python test.py sub} -InitializationScript {cd C:\projects\libbg\build}

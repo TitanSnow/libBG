@@ -19,10 +19,10 @@ before_script:
   - make install prefix=~/local
   - export PATH=$PATH:~/local/bin
   - cd ..
+  - ln -s test build
 
 script:
   - xmake -v -a
-  - cp test/test.py build
   - cd build
   - ./test.py add
   - ./test.py sub
