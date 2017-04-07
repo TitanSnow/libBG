@@ -10,6 +10,7 @@ platform:
   - x86
 
 install:
+  - cmd: git submodule update --init
   - ps: Invoke-WebRequest "https://github.com/tboox/xmake/releases/download/v2.1.3/xmake-v2.1.3.exe" -OutFile "xmake-installer.exe"
   - cmd: dir
   - cmd: xmake-installer.exe /S /D=C:\xmake

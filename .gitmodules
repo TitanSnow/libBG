@@ -1,0 +1,3 @@
+[submodule "runner"]
+	path = test/runner
+	url = https://github.com/TitanSnow/runner.git

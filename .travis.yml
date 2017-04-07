@@ -13,6 +13,7 @@ compiler:
   - clang
 
 before_script:
+  - git submodule update --init
   - git clone --depth=1 https://github.com/tboox/xmake.git
   - cd xmake
   - make build -j
