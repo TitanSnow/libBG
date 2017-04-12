@@ -26,9 +26,6 @@ Get <code>src/bigint.h</code> into your include dir, then
 ```
 Link your program with libBG while compiling. This step might be vary between different platform and compiler. You might be interested in <code>xmake package</code> and use xmake in your project so that everything would be same crossing platforms.
 
-[![Build Status](https://travis-ci.org/TitanSnow/libBG.svg?branch=master)](https://travis-ci.org/TitanSnow/libBG)
-[![Build status](https://ci.appveyor.com/api/projects/status/sn4qgh654fs6u2nm?svg=true)](https://ci.appveyor.com/project/TitanSnow/libbg)
-
 # [Contributing](CONTRIBUTING.md)
 
 # APIs

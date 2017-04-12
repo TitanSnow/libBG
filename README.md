@@ -1,6 +1,10 @@
 # libBG
 A *lightwight* *high-speed* *good-designed* big interger library for C++ with *FFT*
 
+[![Build Status](https://travis-ci.org/TitanSnow/libBG.svg?branch=master)](https://travis-ci.org/TitanSnow/libBG)
+[![Build status](https://ci.appveyor.com/api/projects/status/sn4qgh654fs6u2nm?svg=true)](https://ci.appveyor.com/project/TitanSnow/libbg)
+[![codecov](https://codecov.io/gh/TitanSnow/libBG/branch/master/graph/badge.svg)](https://codecov.io/gh/TitanSnow/libBG)
+
 [More details](ORIGIN.md)
 
 ## Lightwight
