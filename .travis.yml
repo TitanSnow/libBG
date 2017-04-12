@@ -12,22 +12,29 @@ compiler:
   - gcc
   - clang
 
-before_script:
-  - git submodule update --init
+install:
   - git clone --depth=1 https://github.com/tboox/xmake.git
   - cd xmake
   - make build -j
   - make install prefix=~/local
   - export PATH=$PATH:~/local/bin
   - cd ..
+  - rm -rf xmake
+
+before_script:
   - ln -s test build
 
 script:
+  - xmake f -m profile
   - xmake -v -a
   - cd build
-  - ./test.py add
-  - ./test.py sub
-  - ./test.py mul
-  - ./test.py div
-  - ./test.py mod
+  - ./test.py add&
+  - ./test.py sub&
+  - ./test.py mul&
+  - ./test.py div&
+  - ./test.py mod&
+  - wait
   - cd ..
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
