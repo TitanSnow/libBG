@@ -23,6 +23,7 @@ install:
 
 before_script:
   - ln -s test build
+  - if [ x$CXX = xclang++ ]; then export LD=$CXX; fi
 
 script:
   - xmake f -m profile
