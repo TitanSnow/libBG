@@ -26,15 +26,14 @@ before_script:
   - if [ x$CXX = xclang++ ]; then export LD=$CXX; fi
 
 script:
-  - xmake f -m profile
+  - xmake f -m coverage
   - xmake -v -a
   - cd build
-  - ./test.py add&
-  - ./test.py sub&
-  - ./test.py mul&
-  - ./test.py div&
-  - ./test.py mod&
-  - wait
+  - ./test.py add
+  - ./test.py sub
+  - ./test.py mul
+  - ./test.py div
+  - ./test.py mod
   - cd ..
 
 after_success:
