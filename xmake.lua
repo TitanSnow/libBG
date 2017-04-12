@@ -12,6 +12,11 @@ if is_mode("release") then
 elseif is_mode("debug") then
     set_optimize("fast")
     set_symbols("debug")
+
+elseif is_mode("profile") then
+    set_optimize("aggressive")
+    add_cxflags("-coverage")
+    add_ldflags("-coverage")
 end
 
 target("bg")  -- main target
