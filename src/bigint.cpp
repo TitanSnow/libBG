@@ -597,7 +597,7 @@ std::istream &operator>>(std::istream &in, Bigint &a)
         a = 0;
         return in;
     }
-    while (!std::isdigit(ch = in.get()) && ch != EOF);
+    while (!std::isdigit(ch = in.get()) && ch != EOF && ch != '-' );
     if (!in)
     {
         a = 0;
