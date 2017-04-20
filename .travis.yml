@@ -1,6 +1,6 @@
 language: cpp
 
-sudo: false
+sudo: required
 
 os:
   - linux
@@ -13,13 +13,7 @@ compiler:
   - clang
 
 install:
-  - git clone --depth=1 https://github.com/tboox/xmake.git
-  - cd xmake
-  - make build -j
-  - make install prefix=~/local
-  - export PATH=$PATH:~/local/bin
-  - cd ..
-  - rm -rf xmake
+  - bash <(curl -s https://raw.githubusercontent.com/tboox/xmake/dev/scripts/get.sh)
 
 before_script:
   - ln -s test build
