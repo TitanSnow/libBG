@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from runner import get_total_time,Runner
 from random import randint
-times = 10000
+times = 1000
 hi = 10**10000
 lo = -hi
 debugMode = False

@@ -14,7 +14,7 @@ elseif is_mode("debug") then
     set_symbols("debug")
 
 elseif is_mode("coverage") then
-    set_optimize("aggressive")
+    set_optimize("fast")
     add_cxflags("-coverage")
     add_ldflags("-coverage")
 end
